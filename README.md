@@ -1,17 +1,13 @@
-# push-receiver
+# push-receiver-v2
 
-A library to subscribe to GCM/FCM and receive notifications within a node process.
+A library to subscribe to GCM/FCM and receive notifications within a node process. v2 is compatible with the latest FCM registration.
 
-For [Electron](https://github.com/electron/electron), you can use [electron-push-receiver](https://github.com/MatthieuLemoine/electron-push-receiver) instead which provides a convenient wrapper.
+## When should I use `push-receiver-v2` ?
 
-See [this blog post](https://medium.com/@MatthieuLemoine/my-journey-to-bring-web-push-support-to-node-and-electron-ce70eea1c0b0) for more details.
-
-## When should I use `push-receiver` ?
-
-- I want to **receive** push notifications sent using Firebase Cloud Messaging in an [electron](https://github.com/electron/electron) desktop application.
+- I want to **receive** push notifications sent using Firebase Cloud Messaging in a NodeJS application.
 - I want to communicate with a node process/server using Firebase Cloud Messaging infrastructure.
 
-## When should I not use `push-receiver` ?
+## When should I not use `push-receiver-v2` ?
 
 - I want to **send** push notifications (use the firebase SDK instead)
 - My application is running on a FCM supported platform (Android, iOS, Web).
@@ -19,33 +15,36 @@ See [this blog post](https://medium.com/@MatthieuLemoine/my-journey-to-bring-web
 ## Install
 
 `
-npm i -S push-receiver
+npm i -S push-receiver-v2
 `
 
 ## Requirements
 
 - Node v8 (async/await support)
-- Firebase sender id to receive notification
-- Firebase serverKey to send notification (optional)
+- Firebase apiKey, appID, and projectID to receive notification
+- Firebase serverKey to send notification (optional) ([deprecated and removed as of June 20, 2024](https://firebase.google.com/support/faq#fcm-depr-features))
 
 ## Usage
 
-### Electron
-
-You can use [electron-push-receiver](https://github.com/MatthieuLemoine/electron-push-receiver) instead which provides a convenient wrapper.
-
-### Node
-
 ```javascript
-const { register, listen } = require('push-receiver');
+const { register, listen } = require('push-receiver-v2');
+
+// Firebase config
+const config = {
+  firebase: {
+    apiKey: "XXxxXxX0x0x-Xxxx0-X0Xxxxx_0xxXx_XX0xXxX",
+    appID: "1:000000000000:android:xxx0xxxx0000x000xxx000",
+    projectID: "the-app-name"
+  },
+  vapidKey: '' // optional
+};
 
 // First time
 // Register to GCM and FCM
-const credentials = await register(senderId); // You should call register only once and then store the credentials somewhere
+const credentials = await register(config); // You should call register only once and then store the credentials somewhere
 storeCredentials(credentials) // Store credentials to use it later
 const fcmToken = credentials.fcm.token; // Token to use to send notifications
 sendTokenToBackendOrWhatever(fcmToken);
-
 
 // Next times
 const credentials = getSavedCredentials() // get your saved credentials from somewhere (file, db, etc...)
@@ -69,3 +68,10 @@ To test, you can use the [send script](scripts/send/index.js) provided in this r
 ```
 node scripts/send --serverKey="<FIREBASE_SERVER_KEY>" --token="<FIREBASE_TOKEN>"
 ```
+
+Note: The `send` endpoint is deprecated and removed as of June 20, 2024: https://firebase.google.com/support/faq#fcm-depr-features
+
+# Acknowledgements
+
+- [push-receiver](https://github.com/MatthieuLemoine/push-receiver) for the original implementation.
+- [Aracna FCM](https://github.com/queelag/fcm) for the latest FCM registration endpoints.
