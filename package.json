@@ -1,8 +1,8 @@
 {
-  "name": "push-receiver",
-  "version": "2.1.1",
+  "name": "push-receiver-v2",
+  "version": "2.2.0",
   "description":
-    "A module to subscribe to GCM/FCM and receive notifications within a node process.",
+    "A module to subscribe to GCM/FCM and receive notifications within a node process. v2 is compatible with the latest FCM registration endpoints.",
   "main": "src/index.js",
   "scripts": {
     "start": "node scripts/listen",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/MatthieuLemoine/push-receiver.git"
+    "url": "git+ssh://git@github.com/javajuice1337/push-receiver-v2.git"
   },
   "keywords": [
     "push",
@@ -38,12 +38,12 @@
     "electron",
     "receiver"
   ],
-  "author": "MatthieuLemoine",
+  "author": "javajuice1337",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MatthieuLemoine/push-receiver/issues"
+    "url": "https://github.com/javajuice1337/push-receiver-v2/issues"
   },
-  "homepage": "https://github.com/MatthieuLemoine/push-receiver#readme",
+  "homepage": "https://github.com/javajuice1337/push-receiver-v2#readme",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.4.1",
