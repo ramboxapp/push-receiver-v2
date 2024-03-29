@@ -1,6 +1,8 @@
 # push-receiver-v2
 
-A library to subscribe to GCM/FCM and receive notifications within a node process. v2 is compatible with the latest FCM registration.
+A library to subscribe to GCM/FCM and receive notifications within a node process. v2 is compatible with the latest FCM registration endpoints.
+
+The original [push-receiver](https://github.com/MatthieuLemoine/push-receiver) FCM registration endpoint has been [deprecated and removed as of June 20, 2024](https://firebase.google.com/support/faq#fcm-depr-features).
 
 ## When should I use `push-receiver-v2` ?
 
