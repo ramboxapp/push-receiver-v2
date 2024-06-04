@@ -4,7 +4,10 @@ const Client = require('./client.js');
 module.exports = {
   listen,
   register,
+  stopListening,
 };
+
+let client;
 
 async function listen(credentials, notificationCallback) {
   if (!credentials) {
@@ -29,8 +32,15 @@ async function listen(credentials, notificationCallback) {
     throw new Error('Missing keys.authSecret in credentials');
   }
 
-  const client = new Client(credentials, credentials.persistentIds);
+  client = new Client(credentials, credentials.persistentIds);
   client.on('ON_NOTIFICATION_RECEIVED', notificationCallback);
   client.connect();
   return client;
+}
+
+function stopListening() {
+  if (client) {
+    client.destroy();
+    client = null;
+  }
 }
